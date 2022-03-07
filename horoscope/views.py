@@ -15,7 +15,13 @@ signs = {'aries': 'Овен - первый знак зодиака, планет
          'sagittarius': 'Стрелец - девятый знак зодиака, планета Юпитер (с 23 ноября по 22 декабря).',
          'capricorn': 'Козерог - десятый знак зодиака, планета Сатурн (с 23 декабря по 20 января).',
          'aquarius': 'Водолей - одиннадцатый знак зодиака, планеты Уран и Сатурн (с 21 января по 19 февраля).',
-         'pisces': 'Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта).', }
+         'pisces': 'Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта).'}
+
+types = {
+    'fire': ['aries', 'leo', 'sagittarius'],
+    'earth': ['taurus', 'virgo', 'capricorn'],
+    'air': ['gemini', 'libra', 'aquarius'],
+    'water': ['cancer', 'scorpio', 'pisces'], }
 
 
 def index(request):
@@ -47,3 +53,31 @@ def get_info_about_zodiac_sign_by_number(request, sign_zodiac: int):
     name_zodiac = zodiacs[sign_zodiac - 1]
     redirect_url = reverse('horoscope_name', args=[name_zodiac])
     return HttpResponseRedirect(redirect_url)
+
+
+def show_types(request):
+    li_elements = ''
+    for element in types:
+        redirect_path = reverse('type_name', args=(element,))
+        li_elements += f'<li> <a href="{redirect_path}"> {element.title()} </a> </li>'
+    response = f'''
+        <ul>
+            {li_elements}
+        </ul>
+        '''
+    return HttpResponse(response)
+
+
+def show_element_signs(request, element):
+
+    li_elements = ''
+    for sign in types[element]:
+        redirect_path = reverse('horoscope_name', args=(sign,))
+        li_elements += f'<li> <a href="{redirect_path}"> {sign.title()} <a> </li>'
+    response = f'''
+        <ul>
+            {li_elements}
+        </ul>
+        '''
+    return HttpResponse(response)
+
