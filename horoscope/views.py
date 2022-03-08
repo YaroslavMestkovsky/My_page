@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
-
+from django.template.loader import render_to_string
 # Create your views here.
 
 signs = {'aries': ['Овен - первый знак зодиака, планета Марс (с 21 марта по 20 апреля).', 'Март-Апрель'],
@@ -83,11 +83,8 @@ def index(request):
 
 
 def get_info_about_zodiac_sign(request, sign_zodiac: str):
-    description = signs.get(sign_zodiac, None)
-    if description:
-        return HttpResponse(f'<h2>{description[0]}<h2>')
-    else:
-        return HttpResponseNotFound(f'Неизвестный знак зодиака - {sign_zodiac}')
+    response = render_to_string('horoscope/info_zodiac.html')
+    return HttpResponse(response)
 
 
 def get_info_about_zodiac_sign_by_number(request, sign_zodiac: int):
