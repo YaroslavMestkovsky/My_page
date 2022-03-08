@@ -27,11 +27,7 @@ def index(request):
 
 
 def get_info_about_day(request, day: str):
-    description = week.get(day, None)
-    if description:
-        return HttpResponse(description)
-    else:
-        return HttpResponseNotFound(f'Такого дня не существует - {day}')
+    return render(request, 'week_days/greeting.html')
 
 
 def get_info_about_day_by_number(request, day: int):

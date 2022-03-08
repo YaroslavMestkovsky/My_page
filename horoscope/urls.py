@@ -7,6 +7,8 @@ register_converter(converters.DateConverter, 'date')
 
 urlpatterns = [
     path('', views.index),
+    path('kiany', views.get_kiany_info),
+    path('guinnessworldrecords', views.get_guinness_world_records),
     path('<date:number>', views.get_date_converters),
     path('type', views.show_types),
     path('type/<str:element>', views.show_element_signs, name='type_name'),
