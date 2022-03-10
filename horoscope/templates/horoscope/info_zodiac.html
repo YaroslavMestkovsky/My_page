@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load my_filters %}
 
 {% block css_additional%}
 
@@ -18,12 +19,12 @@
 
     {% include 'includes/navbar.html' %}
 
-    <h1> {{ description_zodiac|last }} </h1>
+    <h1> {{ description|split|first }} </h1>
 
-    {% if description_zodiac is None %}
+    {% if description is None %}
         <h2>Неверно указан знак зодиака - {{ sign|capfirst }}</h2>
     {% else %}
-        <h2>{{ description_zodiac|first }}</h2>
+        <h2>{{ description }}</h2>
     {% endif %}
 
 {% endblock %}
