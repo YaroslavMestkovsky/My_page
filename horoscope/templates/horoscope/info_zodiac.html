@@ -18,6 +18,8 @@
 
     {% include 'includes/navbar.html' %}
 
+    <h1> {{ description_zodiac|last }} </h1>
+
     {% if description_zodiac is None %}
         <h2>Неверно указан знак зодиака - {{ sign|capfirst }}</h2>
     {% else %}
